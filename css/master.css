@@ -12,6 +12,27 @@
     --purple: #a82dd1;
     --yellow: #fff565;
 }
+.blog-article-video {
+    margin: 20px 0;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.blog-article-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.blog-article-video-player {
+    width: 100%;
+    border-radius: 12px;
+}
 .dark {
     --bg: var(--gray5);
     --bg-nav: linear-gradient(to right, var(--gray5), var(--gray6));
