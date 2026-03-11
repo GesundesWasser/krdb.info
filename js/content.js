@@ -6,7 +6,7 @@ let SectionsMain = [];
 // Load sections from API
 async function loadSections() {
     try {
-        const response = await fetch("http://api.krdb.info/api/sections");
+        const response = await fetch("https://api.krdb.info/api/sections");
         const data = await response.json();
 
         // Example: specific username exception
