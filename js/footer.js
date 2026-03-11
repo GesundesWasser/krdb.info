@@ -6,7 +6,7 @@ function loadFooter() {
         const CODENAME = "krdb.info";
         const VERSION = "v1.0";
         const REVISION = "1";
-        const TEST_BUILD = false;
+        const TEST_BUILD = true;
         const TEST_BUILD_MSG = TEST_BUILD 
             ? "This version of " + CODENAME + " also looks Experimental!" 
             : "";
