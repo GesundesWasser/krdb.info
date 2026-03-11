@@ -17,6 +17,7 @@ loadHeader();
 loadFooter();
 
 // Create audio instance
+if (window.location.hostname == "krdb.info") {
 const audio = new Audio('https://download.scamcraft.net/Soyuzed.mp3');
 audio.preload = "auto";
 audio.loop = false; // change to true if you want looping
@@ -39,5 +40,6 @@ function startAudio() {
 // Wait for first user interaction (required by browsers)
 document.addEventListener("click", startAudio, { once: true });
 document.addEventListener("keydown", startAudio, { once: true });
+}
 
 console.log("[krdb.info] Successfully loaded all Scripts!");

@@ -4,11 +4,19 @@ import $ from 'jquery';
 function loadFooter() {
     $(document).ready(function() {
         const CODENAME = "krdb.info";
-        const VERSION = "v1.0";
-        const REVISION = "1";
-        const TEST_BUILD = false;
-        const TEST_BUILD_MSG = TEST_BUILD 
-            ? "This version of " + CODENAME + " also looks Experimental!" 
+        const VERSION = "v1.1";
+        const REVISION = "0";
+
+        let TEST_BUILD;
+
+        if (window.location.hostname !== "krdb.info") {
+            TEST_BUILD = true;
+        } else {
+            TEST_BUILD = false;
+        }
+
+        const TEST_BUILD_MSG = TEST_BUILD
+            ? "This version of " + CODENAME + " also looks Experimental!"
             : "";
 
         const START_YEAR = 2026;
