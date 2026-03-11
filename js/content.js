@@ -1,29 +1,67 @@
 "use strict";
 import jSecRenderer from './jSecRenderer.js';
 
-const SectionsMain = [
-      {
-        imgSrc: '', // Verbuggt
-        author: 'Comrade Sam',
-        date: '02.03.2026',
-        imgAlt: '', // Verbuggt
-        title: 'Day of Seal',
-        description: 'Halölölö? Heute ist der Day of Seal von Comrade Jakob, Es wurde der Seal of Yes! Er hat sich dazu entschieden, den Seal of No in KRDB hinter den Stall zu erschießen! Die Leiche wurde natürlich per Cargo-Rakete zum Dönerklotz angemeldet!',
-        buttonText: 'Lorem ipsum',
-        videoSrc: 'https://download.scamcraft.net/krdbvideo-01.mp4',
-        videoType: 'mp4',
-        showButton: false, // Verbuggt
-    },
-    {
-        imgSrc: '', // Verbuggt
-        author: 'Comrade Sam',
-        date: '02.03.2026',
-        imgAlt: '', // Verbuggt
-        title: 'Release von krdb.info',
-        description: 'Halölölö? Hier ist Comrade Sam, Live aus Bulettien! Die neue Seite krdb.info ist jetzt offiziell online, das heißt jeder, auch außerhalb KRDB kann die News sehen!',
-        buttonText: 'Lorem ipsum',
-        showButton: false, // Verbuggt
+let SectionsMain = [];
+
+// Load sections from API
+async function loadSections() {
+    try {
+        const response = await fetch("http://localhost:3000/api/sections");
+        const data = await response.json();
+
+        // Example: specific username exception
+        SectionsMain = data.map(section => {
+            if (section.author === "Wagger") {
+                return {
+                    ...section,
+                    author: "Comrade Sam",
+                    title: section.title,
+                    description: section.description,
+                    buttonText: section.buttonText,
+                    showButton: true
+                };
+            }
+            let author = capitalizeFirstLetter(section.author);
+                // Modify the section for this special user
+                return {
+                    ...section,
+                    author: "Comrade " + author,
+                    title: section.title,
+                    description: section.description,
+                    buttonText: section.buttonText,
+                    showButton: true
+                };
+        });
+
+        // render sections
+        jSecRenderer.initialize(SectionsMain);
+
+    } catch (error) {
+        console.error("Fehler beim laden des Inhalts (Server down?) ", error);
+
+        // fallback content if API fails
+        SectionsMain = [
+            {
+                imgSrc: '',
+                author: 'Leonidas Vanec',
+                date: '02.03.2026',
+                imgAlt: '',
+                title: 'Ladefehler',
+                description: 'Wir konnten uns nicht mit dem Server verbinden.',
+                buttonText: '',
+                showButton: false
+            }
+        ];
+
+        jSecRenderer.initialize(SectionsMain);
     }
-];
-jSecRenderer.initialize(SectionsMain);
+}
+
+function capitalizeFirstLetter(str) {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+// run on page load
+loadSections();
+
 export { SectionsMain };
