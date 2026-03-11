@@ -18,7 +18,7 @@ async function loadSections() {
                     title: section.title,
                     description: section.description,
                     buttonText: section.buttonText,
-                    showButton: true
+                    showButton: section.showButton
                 };
             }
             let author = capitalizeFirstLetter(section.author);
@@ -29,7 +29,7 @@ async function loadSections() {
                     title: section.title,
                     description: section.description,
                     buttonText: section.buttonText,
-                    showButton: true
+                    showButton: section.showButton
                 };
         });
 
