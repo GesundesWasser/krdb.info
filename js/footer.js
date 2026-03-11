@@ -4,8 +4,8 @@ import $ from 'jquery';
 function loadFooter() {
     $(document).ready(function() {
         const CODENAME = "krdb.info";
-        const VERSION = "v1.0";
-        const REVISION = "6";
+        const VERSION = "v1.1";
+        const REVISION = "0";
 
         let TEST_BUILD;
 
