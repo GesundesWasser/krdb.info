@@ -95,7 +95,7 @@ function logout() {
 
 // Load sections from backend
 async function loadSections() {
-    const res = await fetch("http://api.krdb.info/api/sections");
+    const res = await fetch("https://api.krdb.info/api/sections");
     const sections = await res.json();
     const tbody = document.querySelector("#sectionsTable tbody");
     tbody.innerHTML = "";
