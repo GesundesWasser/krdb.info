@@ -5,7 +5,7 @@ function loadFooter() {
     $(document).ready(function() {
         const CODENAME = "krdb.info";
         const VERSION = "v1.0";
-        const REVISION = "5";
+        const REVISION = "6";
 
         let TEST_BUILD;
 

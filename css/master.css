@@ -55,3 +55,8 @@
     animation-iteration-count: infinite; 
     animation-direction: alternate;
 }
+#admin-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: default;
+}
