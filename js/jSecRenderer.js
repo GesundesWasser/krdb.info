@@ -1,4 +1,4 @@
-    "use strict";
+"use strict";
     console.log("[jSec] Starting...");
     import $ from 'jquery';
 
@@ -56,16 +56,8 @@
                 /* --- Bottom Row --- */
                 const $bottom = $('<div class="blog-card-bottom"></div>');
 
-                /* Thumbnail */
-                if (section.imgSrc) {
-                    const $thumb = $('<img class="blog-card-thumb">')
-                        .attr('src', section.imgSrc)
-                        .attr('alt', section.imgAlt || '');
-                    $bottom.append($thumb);
-                }
-
-                /* Video indicator if no image */
-                if (!section.imgSrc && section.videoSrc) {
+                /* Video indicator if videoSrc exists */
+                if (section.videoSrc) {
                     const $videoPreview = $(
                         '<div class="blog-card-video-preview">(+Video)</div>'
                     );
@@ -106,10 +98,12 @@
 
             /* --- Hero Image --- */
             if (section.imgSrc) {
+                const $heroWrapper = $('<div class="blog-article-hero-wrapper"></div>');
                 const $hero = $('<img class="blog-article-hero">')
                     .attr('src', section.imgSrc)
                     .attr('alt', section.imgAlt || '');
-                $article.append($hero);
+                $heroWrapper.append($hero);
+                $article.append($heroWrapper);
             }
 
             /* --- Video Rendering --- */

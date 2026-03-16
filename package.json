@@ -12,7 +12,10 @@
     "vite": "5.3.1"
   },
   "dependencies": {
+    "canvas-confetti": "^1.9.4",
     "chance": "1.1.11",
-    "jquery": "3.7.1"
+    "jquery": "3.7.1",
+    "js-confetti": "^0.13.1",
+    "rain-effect": "^1.0.1"
   }
 }
