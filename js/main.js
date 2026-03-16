@@ -57,10 +57,19 @@ const getDate = () => {
 }
 
 function trytostartparty() {
+const d = new Date();
     console.log(getDate());
+    if (getDate().startsWith("00.00")) {
+        console.log("Starte Debug Party!")
+        document.getElementById("logotext").innerHTML = "Debug";
+        starttheparty();
+        return true;
+    } else {
+        console.log("Konnte Debug nicht starten :(")
+    }
     if (getDate().startsWith("11.02")) {
         console.log("Starte Bday1 Party!")
-        document.getElementById("logotext").innerHTML = "Geburtstags Party!";
+        document.getElementById("logotext").innerHTML = "Levelup! (" + (d.getFullYear() - 2011) + " Jahre)";
         starttheparty();
         return true;
     } else {
@@ -74,9 +83,23 @@ function trytostartparty() {
     } else {
         console.log("Konnte DayOfSeal nicht starten :(")
     }
-    if (getDate().startsWith("27.07")) {
+    
+        if (getDate().startsWith("04.04")) {
+        console.log("Starte Anniversary Party!")
+        if (d.getFullYear() - 2025 == "1") {
+            document.getElementById("logotext").innerHTML = "Anniversary Party (" + (d.getFullYear() - 2025) + " Jahr)";
+        } else {
+            document.getElementById("logotext").innerHTML = "Anniversary Party (" + (d.getFullYear() - 2025) + " Jahre)";
+        }
+        starttheparty();
+        return true;
+    } else {
+        console.log("Konnte Anniversary nicht starten :(")
+    }
+
+    if (getDate().startsWith("26.07")) {
         console.log("Starte Bday2 Party!")
-        document.getElementById("logotext").innerHTML = "Geburtstags Party!";
+        document.getElementById("logotext").innerHTML = "Levelup! (" + (d.getFullYear() - 2011) + " Jahre)";
         starttheparty();
         return true;
     } else {

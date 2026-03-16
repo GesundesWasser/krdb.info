@@ -2,7 +2,7 @@
 
 import JSConfetti from 'js-confetti';
 import { startRain } from "rain-effect";
-const partyWords = ["𝑓ancy 𝑓!", "Party auf KRDB?", "Richtig fancy", "Phonk gefällig?", "DJ Autoplay hat reingaggt!", "Rena ist dumm!", "9/10 DJs empfehlen dieses Lied!"];
+const partyWords = ["Einhorn Klebestift!", "𝑓ancy 𝑓!", "Party auf KRDB?", "Richtig fancy", "Phonk gefällig?", "DJ Autoplay hat reingaggt!", "Rena ist dumm!", "9/10 DJs empfehlen dieses Lied!"];
 
 function party() {
         const jsConfetti = new JSConfetti();
