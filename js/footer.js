@@ -1,11 +1,11 @@
 "use strict";
 import $ from 'jquery';
-// Function to initialize header
+
 function loadFooter() {
     $(document).ready(function() {
         const CODENAME = "krdb.info";
         const VERSION = "v1.2";
-        const REVISION = "0";
+        const REVISION = __GIT_HASH__; // ← injected at build time
 
         let TEST_BUILD;
 
@@ -16,13 +16,14 @@ function loadFooter() {
         }
 
         const TEST_BUILD_MSG = TEST_BUILD
-            ? "This version of " + CODENAME + " also looks Experimental!"
+            ? "Das ist eine Developerversion von " + CODENAME + "!"
             : "";
 
         const START_YEAR = 2026;
         const currentYear = new Date().getFullYear();
 
-        $('#site-name-version').text(CODENAME + " " + VERSION + " -> R" + REVISION);
+        $('#site-name-version').text(CODENAME + " " + VERSION);
+        $('#git-commit').text("Git Commit: " + REVISION);
         $('#testbuild').text(TEST_BUILD_MSG);
         if (currentYear === START_YEAR) {
             $('#copyright-year').text(START_YEAR.toString());
