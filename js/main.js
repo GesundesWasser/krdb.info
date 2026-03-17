@@ -14,6 +14,9 @@ import loadTheme from './theme.js';
 import loadHeader from './header.js';
 import loadFooter from './footer.js';
 import starttheparty from './partymode.js';
+import { loadakten } from './akten_test.js';
+import { loadSections, SectionsMain } from './content.js';
+import { acceptCookies } from './cookies.js';
 loadTheme();
 loadHeader();
 loadFooter();
@@ -114,3 +117,9 @@ const d = new Date();
         console.log("Konnte NewYear nicht starten :(")
     }
 }
+loadSections();
+document.getElementById("gesetze").addEventListener("click", () => {
+loadakten();
+});
+document.getElementById("logotext").addEventListener("click", () => {
+loadSections();

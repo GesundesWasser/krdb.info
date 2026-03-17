@@ -62,6 +62,5 @@ function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 // run on page load
-loadSections();
 
-export { SectionsMain };
+export { SectionsMain, loadSections };
