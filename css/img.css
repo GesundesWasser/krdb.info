@@ -11,6 +11,14 @@ main img {
     vertical-align: middle;
 }
 
+/* Blog images must not be constrained by the generic main img rule */
+.blog-card-thumb,
+.blog-article-hero {
+    max-width: 100%;
+    margin: 0;
+    vertical-align: unset;
+}
+
 /* ── Text Logo ──────────────────────────────────────────────── */
 
 .logo {
