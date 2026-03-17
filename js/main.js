@@ -97,7 +97,7 @@ const d = new Date();
         console.log("Konnte Anniversary nicht starten :(")
     }
 
-    if (getDate().startsWith("26.07")) {
+    if (getDate().startsWith("27.07")) {
         console.log("Starte Bday2 Party!")
         document.getElementById("logotext").innerHTML = "Levelup! (" + (d.getFullYear() - 2011) + " Jahre)";
         starttheparty();
