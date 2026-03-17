@@ -123,3 +123,6 @@ loadakten();
 });
 document.getElementById("logotext").addEventListener("click", () => {
 loadSections();
+});
+
+document.getElementById("cookies").addEventListener("click", acceptCookies);
