@@ -2,7 +2,9 @@
 
 import JSConfetti from 'js-confetti';
 import { startRain } from "rain-effect";
-const partyWords = ["Einhorn Klebestift!", "𝑓ancy 𝑓!", "Party auf KRDB?", "Richtig fancy", "Phonk gefällig?", "DJ Autoplay hat reingaggt!", "Rena ist dumm!", "9/10 DJs empfehlen dieses Lied!"];
+import Chance from 'chance';
+const c = new Chance({ country: "ru", mobile: true, formatted: true});
+const partyWords = ["Harry Hops Hotline: " + c.phone(), "Einhorn Klebestift!", "𝑓ancy 𝑓!", "Party auf KRDB?", "Richtig fancy", "Phonk gefällig?", "DJ Autoplay hat reingaggt!", "Rena ist dumm!", "9/10 DJs empfehlen dieses Lied!"];
 
 function party() {
         const jsConfetti = new JSConfetti();
