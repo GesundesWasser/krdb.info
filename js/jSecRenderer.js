@@ -9,6 +9,26 @@
         const $mainContent = $('#main-content');
 
         /* ===============================
+        Inline Rainbow Parser
+        =============================== */
+        // Parses ==like this== syntax, wraps matched text in .rainbow-animated spans.
+        // Safe: all text nodes use .text() / createTextNode, never .html().
+        // e.g. 'Hello ==world==!' → "Hello " + <span class="rainbow-animated">world</span> + "!"
+        function parseRainbow(text, $el) {
+            const parts = text.split(/==(.*?)==/);
+            // split alternates: [plain, rainbow, plain, rainbow, ...]
+            parts.forEach((part, i) => {
+                if (i % 2 === 1) {
+                    $el.append($('<span class="rainbow-animated"></span>').text(part));
+                } else if (part) {
+                    $el.append(document.createTextNode(part));
+                }
+            });
+            return $el;
+        }
+
+
+        /* ===============================
         Render Blog Card List
         =============================== */
         function renderBlogList(sections, label) {
@@ -37,9 +57,7 @@
 
                 /* --- Title --- */
                 if (section.title) {
-                    $body.append(
-                        $('<h3 class="blog-card-title"></h3>').text(section.title)
-                    );
+                    $body.append(parseRainbow(section.title, $('<h3 class="blog-card-title"></h3>')));
                 }
 
                 /* --- Description / Excerpt --- */
@@ -154,9 +172,7 @@
 
             /* --- Title --- */
             if (section.title) {
-                $article.append(
-                    $('<h1 class="blog-article-title"></h1>').text(section.title)
-                );
+                $article.append(parseRainbow(section.title, $('<h1 class="blog-article-title"></h1>')));
             }
 
             /* --- Divider --- */
@@ -168,7 +184,7 @@
                 const $content = $('<div class="blog-article-content"></div>');
 
                 paragraphs.forEach(para => {
-                    $content.append($('<p></p>').text(para));
+                    $content.append(parseRainbow(para, $('<p></p>')));
                 });
 
                 $article.append($content);

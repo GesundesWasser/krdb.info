@@ -1,0 +1,31 @@
+:root {
+  --safe-loop: 1s;
+}
+.rainbow-animated {
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1;
+  background: linear-gradient(
+    to left,
+    
+#FF0004 0%,
+    
+#FF00F2 20%,
+    
+#0084FF 40%,
+    
+#11FF00 60%,
+    
+#FBFF00 80%,
+    
+#FF0004 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
+  animation: basicWave1 var(--safe-loop) linear infinite reverse;
+}
+@keyframes basicWave1 {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}

@@ -8,6 +8,7 @@ import '../css/scrollbar.css';
 import '../css/section.css';
 import '../css/text.css';
 import '../css/footer.css';
+import '../css/rainbowtext.css';
 import './content.js';
 import './partymode.js'
 import loadTheme from './theme.js';
