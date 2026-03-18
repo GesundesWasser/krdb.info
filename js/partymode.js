@@ -1,10 +1,14 @@
 "use strict"
 
 import JSConfetti from 'js-confetti';
-import { startRain } from "rain-effect";
+import { startRain, stopRain } from "rain-effect";
 import Chance from 'chance';
+
 const c = new Chance({ country: "ru", mobile: true, formatted: true});
 const partyWords = ["Harry Hops Hotline: " + c.phone(), "Einhorn Klebestift!", "𝑓ancy 𝑓!", "Party auf KRDB?", "Richtig fancy", "Phonk gefällig?", "DJ Autoplay hat reingaggt!", "Rena ist dumm!", "9/10 DJs empfehlen dieses Lied!"];
+const audio = new Audio('https://download.scamcraft.net/Dubtec Records - Audio K9 - Clubbed To Tech (Extended Mix).m4a');
+let loopInterval;
+let index = 1;
 
 function party() {
         const jsConfetti = new JSConfetti();
@@ -14,17 +18,33 @@ function party() {
         spawnWord();
         spawnWord();
         spawnWord();
-    }
+        swaptext();
+        if (audio.currentTime > 255) {
+          stopparty();
+        }
+};
 
 function starttheparty() {
         startRain({amount: 180, fullscreen: false});
-    const audio = new Audio('https://download.scamcraft.net/Dubtec Records - Audio K9 - Clubbed To Tech (Extended Mix).m4a');
     audio.preload = "auto";
-    audio.loop = true;
+    audio.loop = false;
+    audio.currentTime = 15.25;
     audio.play();
     party(); // run instantly
-    setInterval(party, 2000); // then repeat every 2 seconds
+    loopInterval = setInterval(party, 2000); // then repeat every 2 seconds
+    setInterval(clearInterval, 281000);
 };
+
+function stopparty() {
+  console.log("Stoppe die Party :(");
+  stopRain();
+  audio.pause()
+  audio.currentTime = 0;
+  document.getElementById("logotext").classList.remove("rainbow-animated");
+  document.getElementById("logotext").innerHTML = "KRDB.INFO";
+  console.log("Die Party wird gestoppt");
+  clearInterval(loopInterval);
+}
 
 function spawnWord() {
   const word = document.createElement("span");
@@ -49,4 +69,24 @@ function spawnWord() {
   setTimeout(() => word.remove(), 1500); // Clean up after animation
 };
 
-export default starttheparty;
+function swaptext() {
+    if (index === 1) {
+        console.log("Der Text index ist auf 1!")
+        document.getElementById("logotext").innerHTML = "KRDB.INFO: Party Mode!"
+        index = 2;
+        return true;
+    }
+    if (index === 2) {
+        console.log("Der Text index ist auf 2!")
+        const d = new Date();
+        if (d.getFullYear() - 2025 == "1") {
+            document.getElementById("logotext").innerHTML = "Anniversary (" + (d.getFullYear() - 2025) + " Jahr)";
+        } else {
+            document.getElementById("logotext").innerHTML = "Anniversary (" + (d.getFullYear() - 2025) + " Jahre)";
+        }
+        index = 1;
+        return true;
+    }
+}
+
+export {starttheparty, stopparty};
