@@ -62,13 +62,12 @@
 
                 /* --- Description / Excerpt --- */
                 if (section.description) {
-                    const excerpt = section.description.length > 160
-                        ? section.description.slice(0, 160).trimEnd() + '…'
-                        : section.description;
+                    const stripped = section.description.replace(/==(.*?)==/g, '$1');
+                    const excerpt = stripped.length > 160
+                        ? stripped.slice(0, 160).trimEnd() + '…'
+                        : section.description; // keep markers intact when short enough to parse
 
-                    $body.append(
-                        $('<p class="blog-card-excerpt"></p>').text(excerpt)
-                    );
+                    $body.append(parseRainbow(excerpt, $('<p class="blog-card-excerpt"></p>')));
                 }
 
                 /* --- Bottom Row --- */
