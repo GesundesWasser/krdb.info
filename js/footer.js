@@ -4,7 +4,7 @@ import $ from 'jquery';
 function loadFooter() {
     $(document).ready(function() {
         const CODENAME = "krdb.info";
-        const VERSION = "v1.2";
+        const VERSION = "";
         const REVISION = __GIT_HASH__; // ← injected at build time
 
         let TEST_BUILD;
