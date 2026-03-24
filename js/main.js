@@ -80,25 +80,33 @@ document.getElementById("logotext").addEventListener("click", () => {
 loadSections();
 });
 
-document.getElementById("cookies").addEventListener("click", acceptCookies);const response = await fetch("https://api.krdb.info/api/stats");
-const data = await response.json();
-console.log("API Returned: ", data);
+document.getElementById("cookies").addEventListener("click", acceptCookies);
 
-const apiresponse = data.players;
-let messages = [];
+async function loadData() {
+    const response = await fetch("https://api.krdb.info/api/stats");
+    const data = await response.json();
 
-if (apiresponse.includes("GesundesWasser")) {
-    messages.push("Comrade Sam ist gerade auf KRDB!");
+    console.log("API Returned: ", data);
+
+    const apiresponse = data.players;
+    let messages = [];
+
+    if (apiresponse.includes("GesundesWasser")) {
+        messages.push("Comrade Sam ist gerade auf KRDB!");
+    }
+    if (apiresponse.includes("Scamcraft_net")) {
+        messages.push("Comrade Jakob ist gerade auf KRDB!");
+    }
+
+    const knownPlayers = ["GesundesWasser", "Scamcraft_net"];
+    const otherPlayers = apiresponse.filter(player => !knownPlayers.includes(player));
+
+    if (otherPlayers.length > 0) {
+        messages.push(`Comrade Freddy ist gerade ${otherPlayers.length} mal auf KRDB!`);
+    }
+
+    console.log(messages);
+    document.getElementById("playerCount").innerHTML = messages.join("<br>");
 }
-if (apiresponse.includes("Scamcraft_net")) {
-    messages.push("Comrade Jakob ist gerade auf KRDB!");
-}
 
-const knownPlayers = ["GesundesWasser", "Scamcraft_net"];
-const otherPlayers = apiresponse.filter(player => !knownPlayers.includes(player));
-
-if (otherPlayers.length > 0) {
-    messages.push(`Comrade Freddy ist gerade ${otherPlayers.length} mal auf KRDB!`)
-}
-console.log(messages)
-document.getElementById("playerCount").innerHTML = messages.join("<br>");
+loadData();
