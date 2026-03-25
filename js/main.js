@@ -77,6 +77,7 @@ document.getElementById("gesetze").addEventListener("click", () => {
 loadakten();
 });
 document.getElementById("logotext").addEventListener("click", () => {
+history.pushState(null, '', window.location.pathname);
 loadSections();
 });
 

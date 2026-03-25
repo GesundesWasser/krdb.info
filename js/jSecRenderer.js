@@ -32,6 +32,7 @@
         Render Blog Card List
         =============================== */
         function renderBlogList(sections, label) {
+            history.replaceState(null, '', window.location.pathname);
             $mainContent.empty();
 
             const $feed = $('<div class="blog-feed"></div>');
@@ -104,7 +105,7 @@
         Render Single Article
         =============================== */
         function renderArticle(section, sections, label) {
-
+            history.replaceState(null, '', '#/' + section.id);
             $mainContent.empty();
             const $article = $('<article class="blog-article"></article>');
 
@@ -217,6 +218,25 @@
         }
 
         /* ===============================
+        Hash-based routing (back/forward)
+        =============================== */
+window.addEventListener('hashchange', () => {
+    const hash = window.location.hash;
+    const match = hash.match(/^#\/(\d+)$/);
+    if (match) {
+        const id = parseInt(match[1]);
+        const target = currentSections.find(s => s.id === id);
+        if (target) {
+            renderArticle(target, currentSections, currentLabel);
+        } else {
+            renderBlogList(currentSections, currentLabel);
+        }
+    } else {
+        renderBlogList(currentSections, currentLabel); // covers '', '#', '#/'
+    }
+});
+
+        /* ===============================
         Public API
         =============================== */
         return {
@@ -230,6 +250,19 @@
             initialize: function(sections, label) {
                 currentSections = sections;
                 currentLabel = label || 'Die neuesten Nachrichten aus Bulettien';
+
+                // Check if a post ID is already in the URL (permalink / direct link)
+                const hash = window.location.hash;
+                const match = hash.match(/^#\/(\d+)$/);
+                if (match) {
+                    const id = parseInt(match[1]);
+                    const target = sections.find(s => s.id === id);
+                    if (target) {
+                        renderArticle(target, currentSections, currentLabel);
+                        return;
+                    }
+                }
+
                 renderBlogList(currentSections, currentLabel);
             }
         };
