@@ -22,6 +22,8 @@ main img {
 /* ── Text Logo ──────────────────────────────────────────────── */
 
 .logo {
+    height: 150px;
+    width: 350px;
     display: inline-block;
     font-family: 'Montserrat';
     font-size: 3.2rem;
