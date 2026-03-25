@@ -65,7 +65,7 @@ function trytostartparty() {
     if (getDate().startsWith("04.04")) {
         console.log("Starte Anniversary Party!")
         document.getElementById("logotext").innerHTML = "";
-        document.getElementById("logotext").classList.add("rainbow-animated");
+        document.getElementById("feed-party-grab").classList.add("rainbow-animated");
         starttheparty();
         return true;
     } else {

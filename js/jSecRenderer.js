@@ -35,7 +35,7 @@
             $mainContent.empty();
 
             const $feed = $('<div class="blog-feed"></div>');
-            const $feedLabel = $('<h2 class="feed-label"></h2>').text(label || 'Posts');
+            const $feedLabel = $('<h2 id="feed-party-grab" class="feed-label"></h2>').text(label || 'Posts');
             $feed.append($feedLabel);
 
             sections.forEach((section) => {

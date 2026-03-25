@@ -40,8 +40,8 @@ function stopparty() {
   stopRain();
   audio.pause()
   audio.currentTime = 0;
-  document.getElementById("logotext").classList.remove("rainbow-animated");
   document.getElementById("logotext").innerHTML = "KRDB.INFO";
+  document.getElementById("feed-party-grab").classList.remove("rainbow-animated");
   console.log("Die Party wird gestoppt");
   clearInterval(loopInterval);
 }
@@ -72,7 +72,7 @@ function spawnWord() {
 function swaptext() {
     if (index === 1) {
         console.log("Der Text index ist auf 1!")
-        document.getElementById("logotext").innerHTML = "KRDB.INFO: Party Mode!"
+        document.getElementById("feed-party-grab").innerHTML = "KRDB.INFO: Party Mode!"
         index = 2;
         return true;
     }
@@ -80,9 +80,9 @@ function swaptext() {
         console.log("Der Text index ist auf 2!")
         const d = new Date();
         if (d.getFullYear() - 2025 == "1") {
-            document.getElementById("logotext").innerHTML = "Anniversary (" + (d.getFullYear() - 2025) + " Jahr)";
+            document.getElementById("feed-party-grab").innerHTML = "Anniversary (" + (d.getFullYear() - 2025) + " Jahr)";
         } else {
-            document.getElementById("logotext").innerHTML = "Anniversary (" + (d.getFullYear() - 2025) + " Jahre)";
+            document.getElementById("feed-party-grab").innerHTML = "Anniversary (" + (d.getFullYear() - 2025) + " Jahre)";
         }
         index = 1;
         return true;
