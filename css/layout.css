@@ -49,7 +49,7 @@ header::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: url("https://download.scamcraft.net/img/krdb-02.png") center/cover no-repeat;
+    background: url("https://s3.wagger.dev/uploads/547271ab9ea0715a05508373f1c663c5913482a21dd3c17e43690450b57a4aff.png") center/cover no-repeat;
     filter: blur(5px);
     transform: scale(1.1);
     z-index: -1;

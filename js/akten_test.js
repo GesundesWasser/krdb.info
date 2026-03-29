@@ -5,7 +5,7 @@ function loadakten() {
 let SectionsMain = [];
 SectionsMain = [
             {
-                imgSrc: 'https://download.scamcraft.net/img/fileablegesetz.png',
+                imgSrc: 'https://s3.wagger.dev/uploads/8ecee6be20dc98647c1be8bcdeba6ac08ddf0fb2fe5a00afa26beee8b1c31299.png',
                 author: '',
                 date: '15.03.2026',
                 imgAlt: '',
@@ -15,7 +15,7 @@ SectionsMain = [
                 showButton: false
             },
             {
-                imgSrc: 'https://download.scamcraft.net/img/altreifengesetz.png',
+                imgSrc: 'https://s3.wagger.dev/uploads/936d6b553a31a59ee3895ad56030a9b7ba107ca750edc7caef40351e71179157.png',
                 author: '',
                 date: '11.09.2025',
                 imgAlt: '',
