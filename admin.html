@@ -35,8 +35,12 @@
     <input type="text" id="title" placeholder="Title">
     <textarea id="description" placeholder="Description"></textarea>
     <input type="text" id="imgSrc" placeholder="Image URL">
+    <input type="file" id="imgFile" accept="image/*" onchange="uploadFile('imgFile', 'imgSrc', 'imgUploadStatus')">
+    <div class="upload-status" id="imgUploadStatus"></div>
     <input type="text" id="imgAlt" placeholder="Image Alt Text">
     <input type="text" id="videoSrc" placeholder="Video URL">
+    <input type="file" id="videoFile" accept="video/*" onchange="uploadFile('videoFile', 'videoSrc', 'videoUploadStatus')">
+    <div class="upload-status" id="videoUploadStatus"></div>
     <input type="text" id="videoType" placeholder="Video Type">
     <input type="text" id="buttonText" placeholder="Button Text">
     <input type="text" id="buttonLink" placeholder="Button Link">
@@ -93,7 +97,42 @@ function logout() {
     document.getElementById("loginDiv").classList.remove("hidden");
 }
 
-// Load sections from backend
+async function uploadFile(fileInputId, urlInputId, statusId) {
+    const fileInput = document.getElementById(fileInputId);
+    const statusEl = document.getElementById(statusId);
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    statusEl.className = "upload-status";
+    statusEl.textContent = "Uploading…";
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+        const res = await fetch("https://api.krdb.info/api/upload", {
+            method: "POST",
+            headers: { "Authorization": "Bearer " + token },
+            body: formData
+        });
+        const data = await res.json();
+        if (res.ok) {
+            const url = data.url || data.src || data.path || data.file || "";
+            document.getElementById(urlInputId).value = url;
+            statusEl.className = "upload-status ok";
+            statusEl.textContent = "✔ Uploaded: " + (url || "done");
+        } else {
+            statusEl.className = "upload-status err";
+            statusEl.textContent = "✖ " + (data.error || "Upload failed");
+        }
+    } catch (err) {
+        statusEl.className = "upload-status err";
+        statusEl.textContent = "✖ Network error: " + err.message;
+    }
+
+    fileInput.value = "";
+}
+
 async function loadSections() {
     const res = await fetch("https://api.krdb.info/api/sections");
     const sections = await res.json();
@@ -201,6 +240,8 @@ function clearForm() {
     document.getElementById("buttonLink").value = "";
     document.getElementById("showButton").checked = false;
     document.getElementById("disabled").checked = false;
+    document.getElementById("imgUploadStatus").textContent = "";
+    document.getElementById("videoUploadStatus").textContent = "";
 }
 </script>
 
