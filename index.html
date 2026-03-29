@@ -13,6 +13,24 @@
 
 
     <header>
+
+      <div id="account-field">
+        <div class="login-input-wrap">
+          <span class="login-icon">&#128100;</span>
+          <input type="text" id="login-username" placeholder="Benutername" autocomplete="username"/>
+        </div>
+        <div class="login-input-wrap">
+          <span class="login-icon">&#128274;</span>
+          <input type="password" id="login-password" placeholder="Passwort" autocomplete="current-password"/>
+          <button class="login-eye" id="login-toggle-pw" type="button">&#128065;</button>
+        </div>
+        <label class="login-remember">
+          <input type="checkbox" id="login-remember"/> Angemeldet bleiben
+        </label>
+        <button id="login-btn" type="button">Anmelden</button>
+        <p id="login-msg"></p>
+      </div>
+
       <a href="javascript:void(0)">
       <img src="https://s3.wagger.dev/uploads/641ae8aa17bbece4fc59c444da358dd160899141bc13b984b560e82f676cf874.png" id="logotext" class="logo"></a>
       <h1></h1>

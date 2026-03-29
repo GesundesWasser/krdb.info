@@ -18,9 +18,12 @@ import { starttheparty, stopparty } from './partymode.js';
 import { loadakten } from './akten_test.js';
 import { loadSections, SectionsMain } from './content.js';
 import { acceptCookies } from './cookies.js';
+import { initLogin } from './login.js';
+
 loadTheme();
 loadHeader();
 loadFooter();
+await initLogin();
 
 if (window.location.hostname == "krdb.info") {
 
