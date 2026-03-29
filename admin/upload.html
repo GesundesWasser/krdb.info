@@ -27,7 +27,7 @@
 <div id="uploadDiv" class="hidden">
     <div id="userGreeting"></div>
     <h2>Upload Image or Video</h2>
-    <input type="file" id="fileInput" accept="image/*,video/*">
+    <input type="file" id="fileInput" accept="image/*,video/*,audio/*">
     <label><input type="checkbox" id="shortenToggle">Sign-Picture Mode</label>
     <div class="upload-status" id="uploadStatus"></div>
     <input type="text" id="fileUrl" placeholder="Uploaded file URL will appear here">
@@ -42,7 +42,7 @@ async function login() {
     const password = document.getElementById("password").value;
     
     try {
-        const res = await fetch("https://api.krdb.info/login", {
+        const res = await fetch("https://api.krdb.info/api/auth/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password })

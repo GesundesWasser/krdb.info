@@ -11,10 +11,10 @@ async function loadSections() {
 
         // Example: specific username exception
         SectionsMain = data.map(section => {
-            if (section.author === "Wagger") {
+            if (section.author.includes("Wagger")) {
                 return {
                     ...section,
-                    author: "Comrade Sam",
+                    author: section.author.replace("Wagger", "Comrade Sam"),
                     title: section.title,
                     description: section.description,
                     buttonText: section.buttonText,

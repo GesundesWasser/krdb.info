@@ -27,7 +27,7 @@ await initLogin();
 
 if (window.location.hostname == "krdb.info") {
 
-const audio = new Audio('https://download.scamcraft.net/Soyuzed.mp3');
+const audio = new Audio('https://s3.wagger.dev/uploads/ae23b7195501a868f2f8cd572a561d1a045af179bd8d2c063041b51025833773.mp3');
 audio.preload = "auto";
 audio.loop = false;
 

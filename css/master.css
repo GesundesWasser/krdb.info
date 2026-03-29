@@ -58,3 +58,10 @@
   50%  { transform: scale(1.2) rotate(5deg);  opacity: 1; }
   100% { transform: scale(1) translateY(-60px); opacity: 0; }
 }
+.author-svg {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-left: 0px;
+    margin-top: -2px;
+}
