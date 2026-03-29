@@ -108,7 +108,7 @@ async function uploadFile(file) {
             statusEl.textContent = "Shortening URL…";
 
             try {
-                const shortRes = await fetch("http://localhost:3000/api/shorten", {
+                const shortRes = await fetch("https://api.krdb.info/api/shorten", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
