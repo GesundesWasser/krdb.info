@@ -6,6 +6,8 @@
 
         let currentSections = [];
         let currentLabel = 'Posts';
+        let currentPage = 1;
+        const POSTS_PER_PAGE = 5;
         const $mainContent = $('#main-content');
 
         /* ===============================
@@ -29,17 +31,24 @@
 
 
         /* ===============================
-        Render Blog Card List
+        Render Blog Card List (with pagination)
         =============================== */
-        function renderBlogList(sections, label) {
+        function renderBlogList(sections, label, page) {
             history.replaceState(null, '', window.location.pathname);
             $mainContent.empty();
+
+            page = page || 1;
+            currentPage = page;
+
+            const totalPages = Math.ceil(sections.length / POSTS_PER_PAGE);
+            const startIdx = (page - 1) * POSTS_PER_PAGE;
+            const pageSections = sections.slice(startIdx, startIdx + POSTS_PER_PAGE);
 
             const $feed = $('<div class="blog-feed"></div>');
             const $feedLabel = $('<h2 id="feed-party-grab" class="feed-label"></h2>').text(label || 'Posts');
             $feed.append($feedLabel);
 
-            sections.forEach((section) => {
+            pageSections.forEach((section) => {
 
                 const $card = $('<article class="blog-card"></article>');
                 const $body = $('<div class="blog-card-body"></div>');
@@ -95,10 +104,32 @@
                 $feed.append($card);
             });
 
+            /* --- Pagination Controls --- */
+            if (totalPages > 1) {
+                const $pagination = $('<div class="blog-pagination"></div>');
+
+                if (page > 1) {
+                    const $prev = $('<button class="blog-page-btn">← Zurück</button>');
+                    $prev.on('click', () => renderBlogList(sections, label, page - 1));
+                    $pagination.append($prev);
+                }
+
+                const $pageInfo = $('<span class="blog-page-info"></span>').text(`Seite ${page} / ${totalPages}`);
+                $pagination.append($pageInfo);
+
+                if (page < totalPages) {
+                    const $next = $('<button class="blog-page-btn">Weiter →</button>');
+                    $next.on('click', () => renderBlogList(sections, label, page + 1));
+                    $pagination.append($next);
+                }
+
+                $feed.append($pagination);
+            }
+
             $mainContent.append($feed);
             $('html, body').animate({ scrollTop: 0 }, 'fast');
 
-            console.log("[jSec] Blog list rendered.");
+            console.log(`[jSec] Blog list rendered (page ${page}/${totalPages}).`);
         }
 
         /* ===============================
@@ -111,7 +142,8 @@
 
             /* --- Back Button --- */
             const $back = $('<button class="blog-back-btn">← Zurück</button>');
-            $back.on('click', () => renderBlogList(sections, label));
+            const savedPage = currentPage;
+            $back.on('click', () => renderBlogList(sections, label, savedPage));
             $article.append($back);
 
             /* --- Hero Image --- */

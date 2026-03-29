@@ -543,3 +543,48 @@ main {
         gap: 0.3rem;
     }
 }
+/* ── Pagination ────────────────────────────────────── */
+.blog-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    padding: 2rem 0 0.5rem;
+    border-top: 1px solid var(--gray4);
+    margin-top: 1rem;
+}
+
+.blog-page-btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--gray1);
+    background: var(--gray4);
+    border: none;
+    padding: 0.45rem 1.1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background 150ms, color 150ms;
+    box-shadow: none;
+    background-image: none;
+    width: auto;
+    height: auto;
+}
+
+.blog-page-btn:hover {
+    background: var(--gray3);
+    color: var(--gray0);
+    background-position: unset;
+}
+
+.blog-page-info {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray3);
+    font-weight: 600;
+    user-select: none;
+}
