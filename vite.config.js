@@ -17,7 +17,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
-        admin: resolve(__dirname, 'admin.html')
+        admin: resolve(__dirname, 'admin/selector.html'),
+        upload: resolve(__dirname, 'admin/upload.html'),
+        editor: resolve(__dirname, 'admin/editor.html')
       }
     }
   }

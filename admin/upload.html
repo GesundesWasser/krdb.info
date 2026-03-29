@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Panel</title>
+<style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    input, button { margin: 5px 0; padding: 8px; width: 100%; }
+    .hidden { display: none; }
+    .upload-status { margin-top: 5px; font-weight: bold; }
+    .ok { color: green; }
+    .err { color: red; }
+    input[type="checkbox"] { width: auto; }
+    #userGreeting { font-size: 1.2em; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+<h2 id="headerText">Login</h2>
+<div id="loginDiv">
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p id="loginError" style="color:red;"></p>
+</div>
+
+<div id="uploadDiv" class="hidden">
+    <div id="userGreeting"></div>
+    <h2>Upload Image or Video</h2>
+    <input type="file" id="fileInput" accept="image/*,video/*">
+    <label><input type="checkbox" id="shortenToggle">Sign-Picture Mode</label>
+    <div class="upload-status" id="uploadStatus"></div>
+    <input type="text" id="fileUrl" placeholder="Uploaded file URL will appear here">
+</div>
+
+<script>
+let token = "";
+let currentUser = "";
+
+async function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    
+    try {
+        const res = await fetch("https://api.krdb.info/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if(res.ok){
+            token = data.token;
+            currentUser = username;
+            document.getElementById("loginDiv").classList.add("hidden");
+            document.getElementById("uploadDiv").classList.remove("hidden");
+            document.getElementById("userGreeting").innerHTML = 
+                `Hello, ${currentUser} <button onclick="logout()">Logout</button>`;
+            document.getElementById("headerText").innerHTML = "Fancy Upload";
+        } else {
+            document.getElementById("loginError").innerText = data.error;
+        }
+    } catch (err) {
+        document.getElementById("loginError").innerText = "Network error: " + err.message;
+    }
+}
+
+function logout() {
+    token = "";
+    currentUser = "";
+    document.getElementById("uploadDiv").classList.add("hidden");
+    document.getElementById("loginDiv").classList.remove("hidden");
+    document.getElementById("fileInput").value = "";
+    document.getElementById("fileUrl").value = "";
+    document.getElementById("uploadStatus").textContent = "";
+    document.getElementById("userGreeting").innerHTML = "";
+}
+
+async function uploadFile(file) {
+    const statusEl = document.getElementById("uploadStatus");
+    const urlInput = document.getElementById("fileUrl");
+    
+    if (!file || !token) return;
+
+    statusEl.className = "upload-status";
+    statusEl.textContent = "Uploading…";
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+        const res = await fetch("https://api.krdb.info/api/upload", {
+            method: "POST",
+            headers: { "Authorization": "Bearer " + token },
+            body: formData
+        });
+        const data = await res.json();
+        if (res.ok) {
+            const longUrl = data.url || data.src || data.path || data.file || "";
+            const shouldShorten = document.getElementById("shortenToggle").checked;
+
+            if (!shouldShorten) {
+                urlInput.value = longUrl;
+                statusEl.className = "upload-status ok";
+                statusEl.textContent = "✔ Uploaded: " + longUrl;
+                return;
+            }
+
+            statusEl.textContent = "Shortening URL…";
+
+            try {
+                const shortRes = await fetch("http://localhost:3000/api/shorten", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + token
+                    },
+                    body: JSON.stringify({ url: longUrl })
+                });
+
+                const shortData = await shortRes.json();
+
+                if (shortRes.ok) {
+                    const shortUrl = shortData.url;
+                    urlInput.value = shortUrl;
+                    statusEl.className = "upload-status ok";
+                    statusEl.textContent = "✔ Uploaded & shortened: " + shortUrl;
+                } else {
+                    urlInput.value = longUrl;
+                    statusEl.className = "upload-status err";
+                    statusEl.textContent = "Uploaded, but shortening failed";
+                }
+            } catch (err) {
+                urlInput.value = longUrl;
+                statusEl.className = "upload-status err";
+                statusEl.textContent = "Uploaded, but TinySRC error: " + err.message;
+            }
+        } else {
+            statusEl.className = "upload-status err";
+            statusEl.textContent = "✖ " + (data.error || "Upload failed");
+        }
+    } catch (err) {
+        statusEl.className = "upload-status err";
+        statusEl.textContent = "✖ Network error: " + err.message;
+    }
+}
+
+document.getElementById("fileInput").addEventListener("change", (e) => {
+    uploadFile(e.target.files[0]);
+});
+</script>
+
+</body>
+</html>
