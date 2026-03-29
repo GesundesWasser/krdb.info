@@ -31,8 +31,7 @@ function renderAuthor(authorName) {
     const adminMatch = /%admin%$/i.test(authorName);
     if (adminMatch) {
         const $span = $('<span class="blog-card-author"></span>');
-        // This is still WIP!
-        $span.html(`${authorName.replace(/%admin%$/i, '')}`); //<img src="" alt="ADMIN" class="author-svg" />`);
+        $span.html(`${authorName.replace(/%admin%$/i, '')} <img src="https://s3.wagger.dev/uploads/c02210e09a8ba8a809487de3b4d7a17e00f551aa5b8e35e519c61e2cda1dbb1a.svg" alt="ADMIN" class="author-svg" />`);
         return $span;
     } else {
         return $('<span class="blog-card-author"></span>').text(authorName);
