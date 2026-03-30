@@ -14,6 +14,7 @@ export default defineConfig({
     __GIT_HASH__: JSON.stringify(gitHash),
   },
   build: {
+    target: "esnext",
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
