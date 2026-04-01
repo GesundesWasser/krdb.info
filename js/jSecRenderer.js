@@ -161,6 +161,15 @@ const jSecRenderer = (function () {
             $article.append($heroWrapper);
         }
 
+        function toEmbedUrl(url) {
+            const match = url.match(/v=([^&]+)/);
+            if (match) {
+                console.log("Konvertiere " + url + "...");
+                console.log("Ergebnis:" + match);
+                return `https://www.youtube.com/embed/${match[1]}`;
+            }
+            return url;
+        }
         /* --- Video --- */
         if (section.videoSrc) {
             const $videoWrapper = $('<div class="blog-article-video"></div>');
@@ -174,7 +183,7 @@ const jSecRenderer = (function () {
                 $videoWrapper.append($video);
             } else {
                 $videoWrapper.append($('<iframe>', {
-                    src: section.videoSrc,
+                    src: toEmbedUrl(section.videoSrc),
                     frameborder: 0,
                     allow: 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture',
                     allowfullscreen: true
