@@ -11,14 +11,25 @@ async function loadSections() {
 
     // Example: specific username exception
     SectionsMain = data.map((section) => {
+      // Revive button.fn string back into a callable onClick
+      let button = undefined;
+      if (section.button?.fn) {
+        try {
+          const fn = new Function(section.button.fn);
+          button = { ...section.button, onClick: fn };
+        } catch (e) {
+          console.warn("Could not revive button fn:", e);
+          button = section.button;
+        }
+      } else if (section.button) {
+        button = section.button;
+      }
+
       if (section.author.includes("Wagger")) {
         return {
           ...section,
           author: section.author.replace("Wagger", "Comrade Sam"),
-          title: section.title,
-          description: section.description,
-          buttonText: section.buttonText,
-          showButton: section.showButton,
+          ...(button ? { button } : {}),
         };
       }
       let author = capitalizeFirstLetter(section.author);
@@ -26,10 +37,7 @@ async function loadSections() {
       return {
         ...section,
         author: "Comrade " + author,
-        title: section.title,
-        description: section.description,
-        buttonText: section.buttonText,
-        showButton: section.showButton,
+        ...(button ? { button } : {}),
       };
     });
 
@@ -47,8 +55,6 @@ async function loadSections() {
         imgAlt: "",
         title: "Ladefehler",
         description: "Wir konnten uns nicht mit dem Server verbinden.",
-        buttonText: "",
-        showButton: false,
       },
     ];
 
