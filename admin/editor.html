@@ -69,7 +69,7 @@
       <input type="hidden" id="sectionId" />
       <input type="text" id="title" placeholder="Title" />
       <textarea id="description" placeholder="Description"></textarea>
-      <input type="text" id="imgSrc" placeholder="Image URL" />
+      <input type="text" id="imgSrc" placeholder="Image Preview" disabled />
       <input
         type="file"
         id="imgFile"
@@ -77,8 +77,7 @@
         onchange="uploadFile('imgFile', 'imgSrc', 'imgUploadStatus')"
       />
       <div class="upload-status" id="imgUploadStatus"></div>
-      <input type="text" id="imgAlt" placeholder="Image Alt Text" />
-      <input type="text" id="videoSrc" placeholder="Video URL" />
+      <input type="text" id="videoSrc" placeholder="Video Preview" disabled />
       <input
         type="file"
         id="videoFile"
@@ -86,11 +85,18 @@
         onchange="uploadFile('videoFile', 'videoSrc', 'videoUploadStatus')"
       />
       <div class="upload-status" id="videoUploadStatus"></div>
-      <input type="text" id="videoType" placeholder="Video Type" />
-      <input type="text" id="buttonText" placeholder="Button Text" />
-      <input type="text" id="buttonLink" placeholder="Button Link" />
-      <label><input type="checkbox" id="showButton" /> Show Button</label>
-      <label><input type="checkbox" id="disabled" /> Disabled</label>
+
+      <input
+        type="text"
+        id="buttonText"
+        placeholder="Button Text (leave blank for no button)"
+      />
+      <textarea
+        id="buttonFn"
+        placeholder="JavaScript Funktion"
+        disabled
+      ></textarea>
+
       <div class="flex">
         <button onclick="saveSection()">Save Section</button>
         <button onclick="clearForm()">Clear</button>
@@ -148,7 +154,6 @@
         const file = fileInput.files[0];
         if (!file) return;
 
-        statusEl.className = "upload-status";
         statusEl.textContent = "Uploading…";
 
         const formData = new FormData();
@@ -162,17 +167,15 @@
           });
           const data = await res.json();
           if (res.ok) {
-            const url = data.url || data.src || data.path || data.file || "";
+            const url = data.url || "";
             document.getElementById(urlInputId).value = url;
-            statusEl.className = "upload-status ok";
-            statusEl.textContent = "✔ Uploaded: " + (url || "done");
+            statusEl.textContent =
+              "Datei wurde hochgeladen auf den Server: " + url;
           } else {
-            statusEl.className = "upload-status err";
-            statusEl.textContent = "✖ " + (data.error || "Upload failed");
+            statusEl.textContent = "Fehler beim hochladen :(";
           }
         } catch (err) {
-          statusEl.className = "upload-status err";
-          statusEl.textContent = "✖ Network error: " + err.message;
+          statusEl.textContent = "Netzwerk Fehler :(";
         }
 
         fileInput.value = "";
@@ -209,29 +212,23 @@
         document.getElementById("title").value = s.title;
         document.getElementById("description").value = s.description;
         document.getElementById("imgSrc").value = s.imgSrc;
-        document.getElementById("imgAlt").value = s.imgAlt;
         document.getElementById("videoSrc").value = s.videoSrc;
-        document.getElementById("videoType").value = s.videoType;
-        document.getElementById("buttonText").value = s.buttonText;
-        document.getElementById("buttonLink").value = s.buttonLink;
-        document.getElementById("showButton").checked = s.showButton;
-        document.getElementById("disabled").checked = s.disabled;
+        document.getElementById("buttonText").value = s.button?.text || "";
+        document.getElementById("buttonFn").value = s.button?.fn || "";
+        const hasText = (s.button?.text || "").trim().length > 0;
+        document.getElementById("buttonFn").disabled = !hasText;
       }
 
-      // Save or update section
       async function saveSection() {
         const id = document.getElementById("sectionId").value;
+        const text = document.getElementById("buttonText").value.trim();
+        const fn = document.getElementById("buttonFn").value.trim();
         const section = {
           title: document.getElementById("title").value,
           description: document.getElementById("description").value,
           imgSrc: document.getElementById("imgSrc").value,
-          imgAlt: document.getElementById("imgAlt").value,
           videoSrc: document.getElementById("videoSrc").value,
-          videoType: document.getElementById("videoType").value,
-          buttonText: document.getElementById("buttonText").value,
-          buttonLink: document.getElementById("buttonLink").value,
-          showButton: document.getElementById("showButton").checked,
-          disabled: document.getElementById("disabled").checked,
+          button: text ? { text, fn: fn || "" } : undefined,
         };
 
         const url = id
@@ -276,20 +273,25 @@
 
       // Clear form
       function clearForm() {
+        document.getElementById("buttonFn").disabled = true;
         document.getElementById("sectionId").value = "";
         document.getElementById("title").value = "";
         document.getElementById("description").value = "";
         document.getElementById("imgSrc").value = "";
-        document.getElementById("imgAlt").value = "";
         document.getElementById("videoSrc").value = "";
-        document.getElementById("videoType").value = "";
         document.getElementById("buttonText").value = "";
-        document.getElementById("buttonLink").value = "";
-        document.getElementById("showButton").checked = false;
-        document.getElementById("disabled").checked = false;
+        document.getElementById("buttonFn").value = "";
         document.getElementById("imgUploadStatus").textContent = "";
         document.getElementById("videoUploadStatus").textContent = "";
       }
+
+      const buttonTextInput = document.getElementById("buttonText");
+      const buttonFnInput = document.getElementById("buttonFn");
+      buttonTextInput.addEventListener("input", () => {
+        const hasText = buttonTextInput.value.trim().length > 0;
+        buttonFnInput.disabled = !hasText;
+        if (!hasText) buttonFnInput.value = "";
+      });
     </script>
   </body>
 </html>
