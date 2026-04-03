@@ -11,6 +11,7 @@ let loopInterval;
 let index = 1;
 
 function party() {
+        document.getElementById("feed-party-grab").classList.add("rainbow-animated");
         const jsConfetti = new JSConfetti();
         jsConfetti.addConfetti();
         console.log("PARTYZEIT");
