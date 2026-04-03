@@ -1,12 +1,12 @@
-import { defineConfig } from 'vite'
-import { resolve } from 'path'
-import { execSync } from 'child_process'
+import { defineConfig } from "vite";
+import { resolve } from "path";
+import { execSync } from "child_process";
 
-let gitHash
+let gitHash;
 try {
-  gitHash = execSync('git rev-parse --short HEAD').toString().trim()
+  gitHash = execSync("git rev-parse --short HEAD").toString().trim();
 } catch {
-  gitHash = 'unknown'
+  gitHash = "unknown";
 }
 
 export default defineConfig({
@@ -17,11 +17,11 @@ export default defineConfig({
     target: "esnext",
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        admin: resolve(__dirname, 'admin/selector.html'),
-        upload: resolve(__dirname, 'admin/upload.html'),
-        editor: resolve(__dirname, 'admin/editor.html')
-      }
-    }
-  }
-})
+        main: resolve(__dirname, "index.html"),
+        admin: resolve(__dirname, "admin/selector.html"),
+        upload: resolve(__dirname, "admin/upload.html"),
+        editor: resolve(__dirname, "admin/editor.html"),
+      },
+    },
+  },
+});

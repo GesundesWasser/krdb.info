@@ -1,24 +1,24 @@
 .footer {
-    display: flex; /* Flexbox :O */
-    justify-content: center; /* Center horizontally */
-    align-items: center;    /* Center vertically */
-    flex-direction: column; /* Ensure content inside footer is stacked vertically */
-    padding: 20px;
-    background: var(--bg-nav);
+  display: flex; /* Flexbox :O */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  flex-direction: column; /* Ensure content inside footer is stacked vertically */
+  padding: 20px;
+  background: var(--bg-nav);
 }
 
 .footer p {
-    margin: 5px; /* Actually make the Text readable */
+  margin: 5px; /* Actually make the Text readable */
 }
 /* ── Mobile Footer ─────────────────────────────────── */
 @media (max-width: 600px) {
-    .footer {
-        padding: 16px 1rem;
-        text-align: center;
-    }
+  .footer {
+    padding: 16px 1rem;
+    text-align: center;
+  }
 
-    .footer p {
-        font-size: 0.8rem;
-        word-break: break-word;
-    }
+  .footer p {
+    font-size: 0.8rem;
+    word-break: break-word;
+  }
 }

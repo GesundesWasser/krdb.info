@@ -1,9 +1,9 @@
 /* Base button reset — specific styles live in section.css */
 button {
-    font-family: inherit;
-    cursor: pointer;
+  font-family: inherit;
+  cursor: pointer;
 }
 
 button:focus {
-    outline: none;
+  outline: none;
 }
