@@ -1,5 +1,5 @@
 "use strict";
-import jSecRenderer from "./jSecRenderer.js";
+import SoyuzRenderer from "./SoyuzRenderer.js";
 
 function loadakten() {
   let SectionsMain = [];
@@ -27,7 +27,7 @@ function loadakten() {
       showButton: false,
     },
   ];
-  jSecRenderer.setSections(SectionsMain, "Alle Gesetze aus Bulettien");
+  SoyuzRenderer.setSections(SectionsMain, "Alle Gesetze aus Bulettien");
 }
 
 export { loadakten };

@@ -1,5 +1,5 @@
 "use strict";
-import jSecRenderer from "./jSecRenderer.js";
+import SoyuzRenderer from "./SoyuzRenderer.js";
 
 let SectionsMain = [];
 
@@ -34,7 +34,7 @@ async function loadSections() {
     });
 
     // render sections
-    jSecRenderer.initialize(SectionsMain);
+    SoyuzRenderer.initialize(SectionsMain);
   } catch (error) {
     console.error("Fehler beim laden des Inhalts (Server down?) ", error);
 
@@ -52,7 +52,7 @@ async function loadSections() {
       },
     ];
 
-    jSecRenderer.initialize(SectionsMain);
+    SoyuzRenderer.initialize(SectionsMain);
   }
 }
 
